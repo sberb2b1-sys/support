@@ -27,17 +27,16 @@ python3 -m http.server 8080
 
 ```bash
 # Установите gh: https://cli.github.com/
-./deploy.sh ios-support
+./deploy.sh
 ```
 
 ### Вручную
 
-1. Создайте репозиторий на [github.com/new](https://github.com/new)
-2. Привяжите remote и запушьте:
+1. Создайте репозиторий: [github.com/new?name=support](https://github.com/new?name=support)
+2. Запушьте код:
    ```bash
-   git remote add origin https://github.com/YOUR_USER/ios-support.git
    git push -u origin main
    ```
 3. В **Settings → Pages** выберите источник **GitHub Actions**
 
-Сайт будет доступен по адресу: `https://<username>.github.io/<repo>/`
+Сайт: **https://sberb2b1-sys.github.io/support/**

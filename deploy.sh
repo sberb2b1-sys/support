@@ -1,17 +1,20 @@
 #!/bin/bash
 set -euo pipefail
 
-REPO_NAME="${1:-ios-support}"
+GITHUB_USER="sberb2b1-sys"
+REPO_NAME="${1:-support}"
 
 if ! command -v gh &>/dev/null; then
   echo "GitHub CLI (gh) не установлен."
   echo "Установите: https://cli.github.com/"
   echo ""
   echo "Или вручную:"
-  echo "  1. Создайте репозиторий на https://github.com/new"
-  echo "  2. git remote add origin https://github.com/YOUR_USER/$REPO_NAME.git"
+  echo "  1. Создайте репозиторий: https://github.com/new?name=$REPO_NAME"
+  echo "  2. git remote set-url origin https://github.com/$GITHUB_USER/$REPO_NAME.git"
   echo "  3. git push -u origin main"
   echo "  4. Settings → Pages → Source: GitHub Actions"
+  echo ""
+  echo "Сайт: https://$GITHUB_USER.github.io/$REPO_NAME/"
   exit 1
 fi
 
