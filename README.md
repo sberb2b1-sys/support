@@ -23,8 +23,21 @@ python3 -m http.server 8080
 
 ## Деплой на GitHub Pages
 
-1. Создайте репозиторий на GitHub
-2. Запушьте код
-3. В Settings → Pages выберите **Deploy from a branch**, ветка `main`, папка `/ (root)`
+### Быстрый способ (с GitHub CLI)
+
+```bash
+# Установите gh: https://cli.github.com/
+./deploy.sh ios-support
+```
+
+### Вручную
+
+1. Создайте репозиторий на [github.com/new](https://github.com/new)
+2. Привяжите remote и запушьте:
+   ```bash
+   git remote add origin https://github.com/YOUR_USER/ios-support.git
+   git push -u origin main
+   ```
+3. В **Settings → Pages** выберите источник **GitHub Actions**
 
 Сайт будет доступен по адресу: `https://<username>.github.io/<repo>/`
