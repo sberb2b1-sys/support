@@ -401,6 +401,128 @@
       color: var(--text);
     }
 
+    footer a.modal-trigger {
+      cursor: pointer;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 200;
+      background: rgba(0, 0, 0, 0.72);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.25s, visibility 0.25s;
+    }
+
+    .modal-overlay.is-open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      width: 100%;
+      max-width: 640px;
+      max-height: min(85vh, 720px);
+      display: flex;
+      flex-direction: column;
+      box-shadow: var(--shadow);
+      transform: translateY(16px) scale(0.98);
+      transition: transform 0.25s;
+    }
+
+    .modal-overlay.is-open .modal {
+      transform: translateY(0) scale(1);
+    }
+
+    .modal-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 24px 28px 16px;
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+
+    .modal-header h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+    }
+
+    .modal-close {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      border: 1px solid var(--border);
+      background: var(--surface-2);
+      color: var(--text-muted);
+      font-size: 1.25rem;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s, border-color 0.2s;
+      flex-shrink: 0;
+    }
+
+    .modal-close:hover {
+      color: var(--text);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+
+    .modal-body {
+      padding: 24px 28px 28px;
+      overflow-y: auto;
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      line-height: 1.75;
+    }
+
+    .modal-body h3 {
+      color: var(--text);
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin: 20px 0 8px;
+    }
+
+    .modal-body h3:first-child {
+      margin-top: 0;
+    }
+
+    .modal-body p {
+      margin-bottom: 12px;
+    }
+
+    .modal-body ul {
+      margin: 0 0 12px 20px;
+    }
+
+    .modal-body li {
+      margin-bottom: 6px;
+    }
+
+    .modal-updated {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      opacity: 0.7;
+      margin-bottom: 16px;
+    }
+
+    body.modal-open {
+      overflow: hidden;
+    }
+
     /* Mobile */
     @media (max-width: 640px) {
       nav {
@@ -445,7 +567,6 @@
         <p>Ответы на частые вопросы, инструкции и прямая связь с командой разработки вашего iOS-приложения.</p>
         <div class="hero-actions">
           <a href="#contact" class="btn btn-primary">Написать в поддержку</a>
-          <a href="#faq" class="btn btn-secondary">Частые вопросы</a>
         </div>
       </div>
     </section>
@@ -460,39 +581,10 @@
             <p>Сообщите об ошибке или сбое — мы разберёмся и исправим проблему в ближайшем обновлении.</p>
           </div>
           <div class="feature-card">
-            <div class="feature-icon">💳</div>
-            <h3>Подписки и оплата</h3>
-            <p>Вопросы по покупкам, восстановлению подписки и возвратам средств через App Store.</p>
-          </div>
-          <div class="feature-card">
             <div class="feature-icon">🔒</div>
             <h3>Конфиденциальность</h3>
             <p>Узнайте, как мы обрабатываем ваши данные и какие права у вас есть как у пользователя.</p>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="faq" id="faq">
-      <div class="container">
-        <h2 class="section-title">Частые вопросы</h2>
-        <div class="faq-list">
-          <details>
-            <summary>Как восстановить покупки?</summary>
-            <p>Откройте приложение → Настройки → «Восстановить покупки». Убедитесь, что вы вошли в тот же Apple ID, с которого совершали покупку.</p>
-          </details>
-          <details>
-            <summary>Как отменить подписку?</summary>
-            <p>Перейдите в Настройки iPhone → ваше имя → Подписки → выберите приложение → «Отменить подписку». Отмена вступит в силу в конце текущего периода.</p>
-          </details>
-          <details>
-            <summary>Приложение не запускается или вылетает</summary>
-            <p>Попробуйте перезагрузить устройство и обновить приложение до последней версии в App Store. Если проблема сохраняется — напишите нам с указанием модели iPhone и версии iOS.</p>
-          </details>
-          <details>
-            <summary>Как удалить мои данные?</summary>
-            <p>Напишите на адрес поддержки с темой «Удаление данных». Мы обработаем запрос в течение 30 дней в соответствии с политикой конфиденциальности.</p>
-          </details>
         </div>
       </div>
     </section>
@@ -503,7 +595,7 @@
           <h2>Связаться с нами</h2>
           <p>Опишите проблему как можно подробнее — укажите модель устройства, версию iOS и шаги для воспроизведения.</p>
           <a href="mailto:support@example.com" class="contact-email">
-            ✉️ support@example.com
+            ✉️ info@pixelwaverf.ru
           </a>
         </div>
       </div>
@@ -514,10 +606,177 @@
     <div class="container">
       <p>© 2026 iOS App. Все права защищены.</p>
       <p style="margin-top: 12px;">
-        <a href="#">Политика конфиденциальности</a>
-        <a href="#">Условия использования</a>
+        <a href="#" class="modal-trigger" data-modal="privacy">Политика конфиденциальности</a>
+        <a href="#" class="modal-trigger" data-modal="terms">Условия использования</a>
       </p>
     </div>
   </footer>
+
+  <div class="modal-overlay" id="privacy-modal" role="dialog" aria-modal="true" aria-labelledby="privacy-title">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="privacy-title">Политика конфиденциальности</h2>
+        <button class="modal-close" type="button" aria-label="Закрыть">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-updated">Последнее обновление: 24 июня 2026 г.</p>
+
+        <p>Настоящая Политика конфиденциальности описывает, как iOS App («мы», «приложение») собирает, использует и защищает ваши персональные данные при использовании мобильного приложения для iOS.</p>
+
+        <h3>1. Какие данные мы собираем</h3>
+        <p>Мы можем собирать следующие категории данных:</p>
+        <ul>
+          <li><strong>Данные устройства</strong> — модель iPhone, версия iOS, уникальный идентификатор устройства, язык системы.</li>
+          <li><strong>Данные об использовании</strong> — действия в приложении, время сессий, сведения о сбоях и ошибках.</li>
+          <li><strong>Контактные данные</strong> — адрес электронной почты, если вы обращаетесь в поддержку.</li>
+          <li><strong>Данные покупок</strong> — информация о подписках и покупках через App Store (без доступа к данным банковской карты).</li>
+        </ul>
+
+        <h3>2. Как мы используем данные</h3>
+        <p>Собранные данные используются для:</p>
+        <ul>
+          <li>обеспечения работы и улучшения приложения;</li>
+          <li>обработки подписок и восстановления покупок;</li>
+          <li>технической поддержки и ответов на обращения;</li>
+          <li>анализа ошибок и повышения стабильности;</li>
+          <li>соблюдения требований законодательства.</li>
+        </ul>
+
+        <h3>3. Передача данных третьим лицам</h3>
+        <p>Мы не продаём ваши персональные данные. Передача возможна только:</p>
+        <ul>
+          <li>сервисным провайдерам (аналитика, хостинг, обработка платежей через Apple);</li>
+          <li>по требованию закона или решению суда;</li>
+          <li>с вашего явного согласия.</li>
+        </ul>
+
+        <h3>4. Хранение и защита</h3>
+        <p>Данные хранятся на защищённых серверах с ограниченным доступом. Мы применяем технические и организационные меры для предотвращения несанкционированного доступа, утраты или изменения данных.</p>
+
+        <h3>5. Ваши права</h3>
+        <p>Вы имеете право:</p>
+        <ul>
+          <li>запросить доступ к своим данным;</li>
+          <li>потребовать исправления или удаления данных;</li>
+          <li>отозвать согласие на обработку;</li>
+          <li>ограничить обработку в случаях, предусмотренных законом.</li>
+        </ul>
+        <p>Для реализации прав напишите на <a href="mailto:info@pixelwaverf.ru" style="color: var(--accent);">info@pixelwaverf.ru</a> с темой «Запрос по персональным данным».</p>
+
+        <h3>6. Дети</h3>
+        <p>Приложение не предназначено для лиц младше 13 лет. Мы сознательно не собираем данные детей. При обнаружении таких данных мы удалим их.</p>
+
+        <h3>7. Изменения политики</h3>
+        <p>Мы можем обновлять настоящую Политику. Актуальная версия всегда доступна на этой странице. Продолжая использовать приложение после изменений, вы соглашаетесь с обновлённой Политикой.</p>
+
+        <h3>8. Контакты</h3>
+        <p>По вопросам конфиденциальности обращайтесь: <a href="mailto:info@pixelwaverf.ru" style="color: var(--accent);">info@pixelwaverf.ru</a></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-overlay" id="terms-modal" role="dialog" aria-modal="true" aria-labelledby="terms-title">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 id="terms-title">Условия использования</h2>
+        <button class="modal-close" type="button" aria-label="Закрыть">&times;</button>
+      </div>
+      <div class="modal-body">
+        <p class="modal-updated">Последнее обновление: 24 июня 2026 г.</p>
+
+        <p>Настоящие Условия использования («Условия») регулируют доступ и использование мобильного приложения iOS App («Приложение») для устройств Apple. Устанавливая или используя Приложение, вы соглашаетесь с этими Условиями.</p>
+
+        <h3>1. Предмет соглашения</h3>
+        <p>Мы предоставляем вам ограниченную, неисключительную, непередаваемую лицензию на использование Приложения в личных некоммерческих целях в соответствии с настоящими Условиями и правилами App Store.</p>
+
+        <h3>2. Требования к использованию</h3>
+        <p>Для использования Приложения вам необходимо:</p>
+        <ul>
+          <li>иметь совместимое устройство Apple с актуальной версией iOS;</li>
+          <li>иметь действующий Apple ID (для покупок и подписок);</li>
+          <li>соблюдать применимое законодательство и настоящие Условия.</li>
+        </ul>
+        <p>Запрещается: взламывать, декомпилировать или модифицировать Приложение; использовать его в незаконных целях; нарушать права третьих лиц.</p>
+
+        <h3>3. Подписки и покупки</h3>
+        <p>Некоторые функции могут быть доступны по подписке или разовой покупке через App Store. Оплата обрабатывается Apple в соответствии с её условиями.</p>
+        <ul>
+          <li>Подписка продлевается автоматически, если не отменена за 24 часа до окончания периода.</li>
+          <li>Управление подпиской и возвраты — через настройки Apple ID в App Store.</li>
+          <li>Восстановление покупок доступно в настройках Приложения.</li>
+        </ul>
+
+        <h3>4. Интеллектуальная собственность</h3>
+        <p>Все права на Приложение, включая дизайн, код, тексты, графику и товарные знаки, принадлежат нам или нашим лицензиарам. Настоящие Условия не передают вам никаких прав собственности на Приложение.</p>
+
+        <h3>5. Контент пользователя</h3>
+        <p>Если Приложение позволяет загружать или создавать контент, вы сохраняете права на него, но предоставляете нам лицензию на его обработку в целях работы сервиса. Вы несёте ответственность за законность и содержание своего контента.</p>
+
+        <h3>6. Ограничение ответственности</h3>
+        <p>Приложение предоставляется «как есть». Мы не гарантируем бесперебойную работу и не несём ответственности за косвенные убытки, потерю данных или упущенную выгоду, в пределах, допускаемых законом.</p>
+
+        <h3>7. Прекращение использования</h3>
+        <p>Вы можете прекратить использование в любой момент, удалив Приложение. Мы вправе ограничить или прекратить доступ при нарушении Условий без предварительного уведомления.</p>
+
+        <h3>8. Изменения Условий</h3>
+        <p>Мы можем обновлять Условия. Актуальная версия публикуется на этой странице. Продолжение использования после изменений означает ваше согласие с новой редакцией.</p>
+
+        <h3>9. Применимое право</h3>
+        <p>Настоящие Условия регулируются законодательством Российской Федерации. Споры разрешаются в порядке, установленном действующим законодательством.</p>
+
+        <h3>10. Контакты</h3>
+        <p>По вопросам, связанным с Условиями, обращайтесь: <a href="mailto:info@pixelwaverf.ru" style="color: var(--accent);">info@pixelwaverf.ru</a></p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      var triggers = document.querySelectorAll('.modal-trigger');
+      var overlays = document.querySelectorAll('.modal-overlay');
+      var lastTrigger = null;
+
+      function openModal(overlay, trigger) {
+        lastTrigger = trigger;
+        overlay.classList.add('is-open');
+        document.body.classList.add('modal-open');
+        overlay.querySelector('.modal-close').focus();
+      }
+
+      function closeModal(overlay) {
+        overlay.classList.remove('is-open');
+        if (!document.querySelector('.modal-overlay.is-open')) {
+          document.body.classList.remove('modal-open');
+        }
+        if (lastTrigger) lastTrigger.focus();
+      }
+
+      triggers.forEach(function (trigger) {
+        trigger.addEventListener('click', function (e) {
+          e.preventDefault();
+          var overlay = document.getElementById(trigger.dataset.modal + '-modal');
+          if (overlay) openModal(overlay, trigger);
+        });
+      });
+
+      overlays.forEach(function (overlay) {
+        overlay.querySelector('.modal-close').addEventListener('click', function () {
+          closeModal(overlay);
+        });
+
+        overlay.addEventListener('click', function (e) {
+          if (e.target === overlay) closeModal(overlay);
+        });
+      });
+
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') {
+          overlays.forEach(function (overlay) {
+            if (overlay.classList.contains('is-open')) closeModal(overlay);
+          });
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
